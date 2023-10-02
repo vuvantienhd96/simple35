@@ -28,6 +28,10 @@ const router = createBrowserRouter([
         path: "Table",
         element: <h2>Table</h2>,
       },
+      {
+        path: "err",
+        element: <>errr</>,
+      },
     ],
   },
   {
