@@ -5,6 +5,8 @@ import {
     DashboardOutlined
   } from '@ant-design/icons';
 
+import { Outlet, Link } from "react-router-dom";
+
 export default function Root() {
     return (
       <>
@@ -36,21 +38,23 @@ export default function Root() {
           <nav>
             <ul>
               <li>
-                <a href={`/contacts/1`}> <DashboardOutlined />DashBoard</a>
+                <Link to={`/DashBoard`}><DashboardOutlined />DashBoard</Link>
               </li>
               <li>
-                <a href={`/contacts/2`}><SettingFilled />Form</a>
+                <Link to={`/Form`}><SettingFilled />Form</Link>
               </li>
               <li>
-                <a href={`/contacts/2`}><SmileOutlined />Table</a>
+                <Link to={`/Table`}><SmileOutlined />Table</Link>
               </li>
               <li>
-                <a href={`/contacts/2`}><SyncOutlined />List User</a>
+                <Link to={`/contacts/2`}><SyncOutlined />List User</Link>
               </li>
             </ul>
           </nav>
         </div>
-        <div id="detail"></div>
+        <div id="detail">
+            <Outlet></Outlet>
+        </div>
       </>
     );
   }
