@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import Root from './routes/root.jsx';
 import ErrorPage from './error-page.jsx';
+import { Dasboard } from './components/DashBoard';
 
 const router = createBrowserRouter([
   {
@@ -17,7 +18,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "DashBoard",
-        element: <h2>DashBoard</h2>,
+        element: <Dasboard />,
       },
       {
         path: "Form",
