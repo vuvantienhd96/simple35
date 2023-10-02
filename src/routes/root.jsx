@@ -1,3 +1,10 @@
+import {
+    SettingFilled,
+    SmileOutlined,
+    SyncOutlined,
+    DashboardOutlined
+  } from '@ant-design/icons';
+
 export default function Root() {
     return (
       <>
@@ -29,10 +36,16 @@ export default function Root() {
           <nav>
             <ul>
               <li>
-                <a href={`/contacts/1`}>Your Name</a>
+                <a href={`/contacts/1`}> <DashboardOutlined />DashBoard</a>
               </li>
               <li>
-                <a href={`/contacts/2`}>Your Friend</a>
+                <a href={`/contacts/2`}><SettingFilled />Form</a>
+              </li>
+              <li>
+                <a href={`/contacts/2`}><SmileOutlined />Table</a>
+              </li>
+              <li>
+                <a href={`/contacts/2`}><SyncOutlined />List User</a>
               </li>
             </ul>
           </nav>
