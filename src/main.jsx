@@ -9,6 +9,7 @@ import {
 import Root from './routes/root.jsx';
 import ErrorPage from './error-page.jsx';
 import { Dasboard } from './components/DashBoard';
+import TableCp from './tables/Table.jsx';
 
 const router = createBrowserRouter([
   {
@@ -26,7 +27,7 @@ const router = createBrowserRouter([
       },
       {
         path: "Table",
-        element: <h2>Table</h2>,
+        element: <TableCp />
       },
       {
         path: "err",
