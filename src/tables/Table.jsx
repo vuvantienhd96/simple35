@@ -1,5 +1,9 @@
 import React from 'react';
 import { Space, Table, Tag } from 'antd';
+import { useState } from 'react';
+import { useEffect } from 'react';
+// import thu vien call api
+import axios from 'axios';
 const columns = [
   {
     title: 'Name',
@@ -48,32 +52,20 @@ const columns = [
     ),
   },
 ];
-const data = [
-  {
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer'],
-  },
-  {
-    key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    tags: ['loser'],
-  },
-  {
-    key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sydney No. 1 Lake Park',
-    tags: ['cool', 'teacher'],
-  },
-];
+
 const TableCp = () => {
+    const [data, setDataTable] = useState([]);
+    const api =  'https://64e5f67f09e64530d17f54dc.mockapi.io/rocket35class';
+    useEffect(() => {
+        axios.get(api).then(res => {
+            console.log(res?.data, 'res ====');
+            setDataTable(res?.data);
+        })
+        .catch(err => `đã có lỗi call table: `+err)
+    }, []);
+
     return <>
-        <Table columns={columns} dataSource={data} />
+        {data.length > 0 && <Table columns={columns} dataSource={data} />}
     </>
 };
 export default TableCp;
