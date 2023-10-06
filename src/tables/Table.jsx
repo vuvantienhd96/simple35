@@ -21,12 +21,12 @@ const TableCp = () => {
             console.log(res?.data, 'res ====');
             setDataTable(res?.data);
         })
-        .catch(err => `đã có lỗi call table: ` + err)
+            .catch(err => `đã có lỗi call table: ` + err)
     }
 
 
     useEffect(() => {
-      apiCall();
+        apiCall();
     }, []);
 
 
@@ -84,27 +84,34 @@ const TableCp = () => {
                     <Tag color={'red'} onClick={() => showDeleteConfirm(itemTable)}>
                         Delete
                     </Tag>
+                    <Tag color={'green'} onClick={() => showEdit(itemTable)}>
+                        edit
+                    </Tag>
                 </Space>
             ),
         },
     ];
 
+    const showEdit = (item) => {
+        console.log('edit item', item);
+    }
+
     const showDeleteConfirm = (item) => {
         confirm({
-          title: 'Are you sure delete this task?',
-          icon: <ExclamationCircleFilled />,
-          content: 'Some descriptions',
-          okText: 'Yes',
-          okType: 'danger',
-          cancelText: 'No',
-          onOk() {
-            deleteItemTb(item)
-          },
-          onCancel() {
-            console.log('Cancel');
-          },
+            title: `Are you sure delete this ${item?.name}?`,
+            icon: <ExclamationCircleFilled />,
+            content: `address: ${item?.address} - age: ${item?.age}`,
+            okText: 'Yes',
+            okType: 'danger',
+            cancelText: 'No',
+            onOk() {
+                deleteItemTb(item)
+            },
+            onCancel() {
+                console.log('Cancel');
+            },
         });
-      };
+    };
 
     const deleteItemTb = (itemTable) => {
         console.log(itemTable, 'itemTable');
@@ -116,11 +123,17 @@ const TableCp = () => {
     }
 
     return <>
-        {data.length > 0 && <Table  
-         columns={columns} 
-         dataSource={data} 
-         scroll={{ x: 1700, y: 600 }} 
-         />}
+        <div>
+            <h4>Danh sách sản phẩm </h4>
+            <Tag color={'blue'} onClick={() => console.log('them moi')}>
+                Thêm mới
+            </Tag>
+        </div>
+        {data.length > 0 && <Table
+            columns={columns}
+            dataSource={data}
+            scroll={{ x: 1200, y: 600 }}
+        />}
     </>
 };
 export default TableCp;
