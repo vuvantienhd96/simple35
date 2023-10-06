@@ -4,17 +4,29 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 // import thu vien call api
 import axios from 'axios';
+import { ExclamationCircleFilled } from '@ant-design/icons';
+import { Button, Modal } from 'antd';
 
+
+
+const { confirm } = Modal;
 
 const TableCp = () => {
     const [data, setDataTable] = useState([]);
     const api = 'https://64e5f67f09e64530d17f54dc.mockapi.io/rocket35class';
-    useEffect(() => {
-        axios.get(api).then(res => {
+
+    const apiCall = () => {
+
+        return axios.get(api).then(res => {
             console.log(res?.data, 'res ====');
             setDataTable(res?.data);
         })
-            .catch(err => `đã có lỗi call table: ` + err)
+        .catch(err => `đã có lỗi call table: ` + err)
+    }
+
+
+    useEffect(() => {
+      apiCall();
     }, []);
 
 
@@ -67,7 +79,7 @@ const TableCp = () => {
             render: (_, itemTable) => (
                 <Space size="middle">
                     <a>Invite {itemTable.name}</a>
-                    <Tag color={'red'} onClick={ () => deleteItemTb(itemTable)}>
+                    <Tag color={'red'} onClick={() => showDeleteConfirm(itemTable)}>
                         Delete
                     </Tag>
                 </Space>
@@ -75,8 +87,30 @@ const TableCp = () => {
         },
     ];
 
+    const showDeleteConfirm = (item) => {
+        confirm({
+          title: 'Are you sure delete this task?',
+          icon: <ExclamationCircleFilled />,
+          content: 'Some descriptions',
+          okText: 'Yes',
+          okType: 'danger',
+          cancelText: 'No',
+          onOk() {
+            deleteItemTb(item)
+          },
+          onCancel() {
+            console.log('Cancel');
+          },
+        });
+      };
+
     const deleteItemTb = (itemTable) => {
         console.log(itemTable, 'itemTable');
+        if (itemTable?.id) {
+            axios.delete(api + `/${itemTable?.id}`).then(res => {
+                apiCall();
+            }).catch(err => console.log('xoa ban ghi khong thanh cong ' + err));
+        }
     }
 
     return <>
