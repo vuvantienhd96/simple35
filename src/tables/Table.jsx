@@ -32,9 +32,11 @@ const TableCp = () => {
 
     const columns = [
         {
-            title: 'Stt',
+            title: 'ID',
             dataIndex: 'id',
             key: 'id',
+            fixed: 'left',
+            width: 50,
             render: (text) => <a>{text}</a>,
         },
         {
@@ -76,9 +78,9 @@ const TableCp = () => {
         {
             title: 'Action',
             key: 'action',
+            fixed: 'right',
             render: (_, itemTable) => (
                 <Space size="middle">
-                    <a>Invite {itemTable.name}</a>
                     <Tag color={'red'} onClick={() => showDeleteConfirm(itemTable)}>
                         Delete
                     </Tag>
@@ -114,7 +116,11 @@ const TableCp = () => {
     }
 
     return <>
-        {data.length > 0 && <Table columns={columns} dataSource={data} />}
+        {data.length > 0 && <Table  
+         columns={columns} 
+         dataSource={data} 
+         scroll={{ x: 1700, y: 600 }} 
+         />}
     </>
 };
 export default TableCp;
