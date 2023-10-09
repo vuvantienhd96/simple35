@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { ExclamationCircleFilled } from '@ant-design/icons';
 import { Button, Modal } from 'antd';
-
+import EditTable from './EditTable';
 
 
 const { confirm } = Modal;
@@ -14,6 +14,7 @@ const { confirm } = Modal;
 const TableCp = () => {
     const [data, setDataTable] = useState([]);
     const api = 'https://64e5f67f09e64530d17f54dc.mockapi.io/rocket35class';
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const apiCall = () => {
 
@@ -94,11 +95,17 @@ const TableCp = () => {
 
     const showEdit = (item) => {
         console.log('edit item', item);
+        setIsModalOpen(true);
+    }
+
+    const TestA = () => {
+        return <>hello</>
     }
 
     const showDeleteConfirm = (item) => {
         confirm({
             title: `Are you sure delete this ${item?.name}?`,
+            //title: <TestA />,
             icon: <ExclamationCircleFilled />,
             content: `address: ${item?.address} - age: ${item?.age}`,
             okText: 'Yes',
@@ -134,6 +141,9 @@ const TableCp = () => {
             dataSource={data}
             scroll={{ x: 1200, y: 600 }}
         />}
+
+        {/* modal show here */}
+        <EditTable isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
     </>
 };
 export default TableCp;
