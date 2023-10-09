@@ -15,6 +15,7 @@ const TableCp = () => {
     const [data, setDataTable] = useState([]);
     const api = 'https://64e5f67f09e64530d17f54dc.mockapi.io/rocket35class';
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [itemDetail, setItemDetail] = useState({});
 
     const apiCall = () => {
 
@@ -94,8 +95,9 @@ const TableCp = () => {
     ];
 
     const showEdit = (item) => {
-        console.log('edit item', item);
+        // khi click vao 1 phan tu thi set du lieu cho phan tu 
         setIsModalOpen(true);
+        setItemDetail(item);
     }
 
     const TestA = () => {
@@ -129,6 +131,23 @@ const TableCp = () => {
         }
     }
 
+    // lifting state
+    const editTableApi = (item) => {
+        console.log('item', item);
+        // destructuring
+        const { id, name, address, age, tags, key } = item;
+        // call api
+        axios.put(api+`/${id}`, { 
+            name,
+            address,
+            age,
+            tags,
+            key
+        }).then(res => {
+            setIsModalOpen(false);
+        }).then(res => apiCall());
+    }
+
     return <>
         <div>
             <h4>Danh sách sản phẩm </h4>
@@ -143,7 +162,11 @@ const TableCp = () => {
         />}
 
         {/* modal show here */}
-        <EditTable isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+        <EditTable isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} 
+            itemDetail={itemDetail} 
+            setItemDetail={setItemDetail}
+            callBackUpdate={editTableApi}
+        />
     </>
 };
 export default TableCp;
