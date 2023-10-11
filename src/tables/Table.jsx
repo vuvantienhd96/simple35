@@ -7,6 +7,7 @@ import axios from 'axios';
 import { ExclamationCircleFilled } from '@ant-design/icons';
 import { Button, Modal } from 'antd';
 import EditTable from './EditTable';
+import { NavLink } from "react-router-dom";
 
 
 const { confirm } = Modal;
@@ -148,12 +149,19 @@ const TableCp = () => {
         }).then(res => apiCall());
     }
 
+    const redirectAddItem = () => {
+        
+    }
+
     return <>
         <div>
             <h4>Danh sách sản phẩm </h4>
-            <Tag color={'blue'} onClick={() => console.log('them moi')}>
-                Thêm mới
-            </Tag>
+            <NavLink to="/addItemTable">
+                <Tag color={'blue'}>
+                    Thêm mới
+                </Tag>
+            </NavLink>
+            
         </div>
         {data.length > 0 && <Table
             columns={columns}

@@ -10,6 +10,7 @@ import Root from './routes/root.jsx';
 import ErrorPage from './error-page.jsx';
 import { Dasboard } from './components/DashBoard';
 import TableCp from './tables/Table.jsx';
+import AddItemTable from './tables/AddItemTable';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: "Table",
         element: <TableCp />
+      },
+      {
+        path: "addItemTable",
+        element: <AddItemTable />
       },
       {
         path: "err",
