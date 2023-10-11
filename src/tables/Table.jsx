@@ -62,19 +62,11 @@ const TableCp = () => {
             title: 'Tags',
             key: 'tags',
             dataIndex: 'tags',
-            render: (_, { tags }) => (
+            render: (_, itemTable) => (
                 <>
-                    {tags.map((tag) => {
-                        let color = tag.length > 5 ? 'geekblue' : 'green';
-                        if (tag === 'loser') {
-                            color = 'volcano';
-                        }
-                        return (
-                            <Tag color={color} key={tag}>
-                                {tag.toUpperCase()}
-                            </Tag>
-                        );
-                    })}
+                    <Tag color={'blue'} >
+                        {itemTable.tags}
+                    </Tag>
                 </>
             ),
         },
@@ -138,7 +130,7 @@ const TableCp = () => {
         // destructuring
         const { id, name, address, age, tags, key } = item;
         // call api
-        axios.put(api+`/${id}`, { 
+        axios.put(api + `/${id}`, {
             name,
             address,
             age,
@@ -150,7 +142,7 @@ const TableCp = () => {
     }
 
     const redirectAddItem = () => {
-        
+
     }
 
     return <>
@@ -161,7 +153,7 @@ const TableCp = () => {
                     Thêm mới
                 </Tag>
             </NavLink>
-            
+
         </div>
         {data.length > 0 && <Table
             columns={columns}
@@ -170,8 +162,8 @@ const TableCp = () => {
         />}
 
         {/* modal show here */}
-        <EditTable isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} 
-            itemDetail={itemDetail} 
+        <EditTable isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
+            itemDetail={itemDetail}
             setItemDetail={setItemDetail}
             callBackUpdate={editTableApi}
         />
