@@ -8,7 +8,10 @@ import { ExclamationCircleFilled } from '@ant-design/icons';
 import { Button, Modal } from 'antd';
 import EditTable from './EditTable';
 import { NavLink } from "react-router-dom";
-
+import { useSelector, useDispatch } from 'react-redux';
+import { 
+    increment, 
+    decrement } from './../features/counter/couterReducer';
 
 const { confirm } = Modal;
 
@@ -18,6 +21,8 @@ const TableCp = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [itemDetail, setItemDetail] = useState({});
 
+    const count = useSelector(state => state.counter.value);
+    const dispatch = useDispatch()
     const apiCall = () => {
 
         return axios.get(api).then(res => {
@@ -147,7 +152,13 @@ const TableCp = () => {
 
     return <>
         <div>
-            <h4>Danh sách sản phẩm </h4>
+            <h4>Danh sách sản phẩm {count} </h4>
+            <button
+                    aria-label="Increment value"
+                    onClick={() => dispatch(increment())}
+                >
+                    Increment
+                </button>
             <NavLink to="/addItemTable">
                 <Tag color={'blue'}>
                     Thêm mới

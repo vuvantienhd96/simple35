@@ -3,7 +3,7 @@ import CounterReducer from './features/counter/couterReducer';
 
 export default configureStore({
   reducer: {
-    couter: CounterReducer,
+    counter: CounterReducer,
     // some reducer here...
   }
 })
