@@ -12,6 +12,9 @@ import { Dasboard } from './components/DashBoard';
 import TableCp from './tables/Table.jsx';
 import AddItemTable from './tables/AddItemTable';
 
+import store from './store'
+import { Provider } from 'react-redux'
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -48,6 +51,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>,
 )
