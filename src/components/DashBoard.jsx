@@ -38,7 +38,7 @@ export const Dasboard = () => {
                 </button>
 
             </div>
-            <h2>this is state of Redux: {count}</h2>
+            <h2>this is state of Redux hello: {count}</h2>
             <h2>this is state name of Redux: {name}</h2>
         </>
     )
