@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 const Form = () => {
     const responApi = useSelector(state => state.apiSave.responApi);
+    const responApiDetail = useSelector(state => state.apiSave.apiItemId);
     return <>
         {
          responApi?.length > 0 ? 
@@ -13,6 +14,11 @@ const Form = () => {
             
             }
          </> : 'no data'   
+        }
+
+        <p>-----------</p>
+        {
+            <h4>name: {responApiDetail?.name}</h4>
         }
     </>
 }

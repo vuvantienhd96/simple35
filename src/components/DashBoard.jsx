@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import './Dasboard.css';
 import { Chart } from './Chartjs';
 
-import { fetchUserById } from './../features/apiSave/recallApiLoading';
+import { fetchUserById, fetchById } from './../features/apiSave/recallApiLoading';
 
 
 // add hoook
@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { 
     increment, 
     decrement, incrementByAmount } from './../features/counter/couterReducer';
+import { useState } from 'react';
 
 export const Dasboard = () => {
 
@@ -18,20 +19,37 @@ export const Dasboard = () => {
     const name = useSelector(state => state.counter.name);
     const dispatch = useDispatch();
 
-    // useEffect(() => {
-    //     dispatch(callApi())
-    // }, []);
+    const [test, setTest] = useState(false);
+
+    useEffect(() => {
+        if(test){
+            dispatch(fetchUserById());
+        }
+    }, [test]);
 
 
     return (
         <>hello DashBooad
             <Chart />
             <div>
+
+            <button
+                    aria-label="Increment value"
+                    onClick={() =>  dispatch(fetchById(16))}
+                >
+                    call api detail 16
+                </button>
             <button
                     aria-label="Increment value"
                     onClick={() =>  dispatch(fetchUserById())}
                 >
                     call api
+                </button>
+                <button
+                    aria-label="Increment value"
+                    onClick={() =>  setTest(!test)}
+                >
+                    call api when change any iem
                 </button>
                 <button
                     aria-label="Increment value"
