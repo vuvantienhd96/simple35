@@ -14,6 +14,7 @@ import AddItemTable from './tables/AddItemTable';
 
 import store from './store'
 import { Provider } from 'react-redux'
+import Form from './forms/form.jsx';
 
 const router = createBrowserRouter([
   {
@@ -27,7 +28,7 @@ const router = createBrowserRouter([
       },
       {
         path: "Form",
-        element: <h2>Form</h2>,
+        element: <Form />,
       },
       {
         path: "Table",
