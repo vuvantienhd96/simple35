@@ -1,11 +1,59 @@
 import { Card, Space, Row, Col } from 'antd';
 import React from 'react';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import {useAuth} from './../main';
+import {database} from './../firebaseConfig';
+import {
+    Routes,
+    Route,
+    Link,
+    useNavigate,
+    useLocation,
+    Navigate,
+    Outlet,
+} from "react-router-dom";
 
 const RegisterAndLogin = () => {
 
     const [login, setLogin] = React.useState(false);
-    const handleSubmit = (e, type) => {
+    let authStore = useAuth();
+    let navigate = useNavigate();
+    let location = useLocation();
 
+    const history = useNavigate();
+
+    const handleSubmit = (e, type) => {
+        // avoid submit form
+        e.preventDefault();
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+        console.log(email, password, "=======");
+        if(type === 'signin'){
+            // login
+             // goi ham signin dang nhap
+             signInWithEmailAndPassword(database, email, password)
+             .then((data) => {
+                 console.log(data, "authData");
+                 // dispath
+                 authStore.signin(data, navigate("/", { replace: true }));
+             })
+             .catch((err) => {
+                 console.log(err, "==========")
+             });
+             // aoi login
+
+        }else {
+            createUserWithEmailAndPassword(database, email, password)
+            .then(data => {
+                console.log(data, "authData");
+                // auth.signin()
+                //   history("/data");
+                alert('dang ki thanh cong!');
+            }).catch((err) => {
+                console.log(err, "==========")
+                setLogin(true);
+            });
+        }
     }
 
     const handleReset = () => {
