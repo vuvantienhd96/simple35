@@ -95,7 +95,6 @@ function AuthProvider({ children }) {
 
   let signin = (newUser, callback) => {
     return fakeAuthProvider.signin(() => {
-      debugger;
       // signin with email/pass
       if(newUser._tokenResponse){
         setUser(newUser.user.email);
@@ -128,7 +127,7 @@ function AuthProvider({ children }) {
     });
   };
 
-  let value = { user, signin, signout, callbackUrl };
+  let value = { user, signin, signout, callbackUrl, setUser };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

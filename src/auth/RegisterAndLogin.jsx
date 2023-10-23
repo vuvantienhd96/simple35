@@ -44,7 +44,8 @@ const RegisterAndLogin = () => {
              .then((data) => {
                  console.log(data, "authData");
                  // dispath
-                 authStore.signin(data, navigate("/", { replace: true }));
+                authStore.signin(data, navigate("/", { replace: true }));
+                //authStore.setUser(data.user.email);
              })
              .catch((err) => {
                  console.log(err, "==========")
@@ -80,17 +81,17 @@ const RegisterAndLogin = () => {
         const user = result.user;
 
         console.log(user, 'user');
+        const redirect = navigate("/DashBoard");
         const data = {
             email : user.email,
             token: token
         }
-        authStore.signin(data,  navigate("/DashBoard"));
-        authStore.callbackUrl(navigate("/DashBoard"));
+        authStore.setUser(data.email);
+        //authStore.signin(data, redirect());
+        //authStore.callbackUrl(navigate("/DashBoard"));
        
         // IdP data available using getAdditionalUserInfo(result)
         // ...
-    }).then(res=> {
-        navigate("/DashBoard");
     }).catch((error) => {
         // Handle Errors here.
         const errorCode = error.code;
