@@ -21,6 +21,16 @@ import RequireAuth from './auth/RequireAuth';
 import {fakeAuthProvider} from './auth/auth';
 import RegisterAndLogin from './auth/RegisterAndLogin';
 
+import {
+  Routes,
+  Route,
+  Link,
+  useNavigate,
+  useLocation,
+  Navigate,
+  Outlet,
+} from "react-router-dom";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -85,14 +95,30 @@ function AuthProvider({ children }) {
 
   let signin = (newUser, callback) => {
     return fakeAuthProvider.signin(() => {
-      setUser(newUser.user.email);
-      // token get from freibase
-      localStorage.setItem('tokenUser', newUser._tokenResponse.idToken);
-      // user get from freibase
-      localStorage.setItem('user', newUser.user.email);
+      debugger;
+      // signin with email/pass
+      if(newUser._tokenResponse){
+        setUser(newUser.user.email);
+        // token get from freibase
+        localStorage.setItem('tokenUser', newUser._tokenResponse.idToken);
+        // user get from freibase
+        localStorage.setItem('user', newUser.user.email);
+      }else {
+      // sign in with google
+      setUser(newUser.email);
+      localStorage.setItem('tokenUser', newUser.token);
+        // user get from freibase
+        localStorage.setItem('user', newUser.email);
+      }
+
+      
       callback;
     });
   };
+
+  let callbackUrl= (callback) => {
+      callback;
+  }
 
   let signout = (callback) => {
     return fakeAuthProvider.signout(() => {
@@ -102,7 +128,7 @@ function AuthProvider({ children }) {
     });
   };
 
-  let value = { user, signin, signout };
+  let value = { user, signin, signout, callbackUrl };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

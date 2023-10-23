@@ -2,6 +2,8 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 
+// config google
+import { GoogleAuthProvider } from "firebase/auth";
 import { getAuth } from "firebase/auth";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -33,6 +35,15 @@ export const app = initializeApp(firebaseConfig);
 export const database = getAuth(app);
 
 export const analytics = getAnalytics(app);
+//setup google
+export const provider = new GoogleAuthProvider();
+provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+const auth = getAuth();
+auth.languageCode = 'it';
+provider.setCustomParameters({
+  'login_hint': 'vuvantienhd96@gmail.com'
+});
+
 
 
 // Initialize Firebase Authentication and get a reference to the service

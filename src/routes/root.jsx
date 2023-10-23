@@ -6,13 +6,22 @@ import {
   } from '@ant-design/icons';
 
 
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useNavigate } from "react-router-dom";
+import { useAuth } from './../main';
 
 export default function Root() {
+    let authStore = useAuth();
+    let navigate = useNavigate();
+
+
+    const logoutPage = () => {
+        authStore.signout( navigate("/"));
+    }
+
     return (
       <>
         <div id="sidebar">
-          <h1>React Router Contacts</h1>
+          <h1 onClick={() => logoutPage()}>Logout - Đăng xuất</h1>
           <div>
             <form id="search-form" role="search">
               <input
