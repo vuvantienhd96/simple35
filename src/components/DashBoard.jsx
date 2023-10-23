@@ -13,6 +13,8 @@ import {
     decrement, incrementByAmount } from './../features/counter/couterReducer';
 import { useState } from 'react';
 
+
+
 export const Dasboard = () => {
 
     const count = useSelector(state => state.counter.value);
@@ -27,9 +29,11 @@ export const Dasboard = () => {
         }
     }, [test]);
 
+    const getName = localStorage.getItem('name');
+
 
     return (
-        <>hello DashBooad
+        <>hello {getName}
             <Chart />
             <div>
 

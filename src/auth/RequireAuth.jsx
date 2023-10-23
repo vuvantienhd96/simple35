@@ -10,7 +10,6 @@ export default function RequireAuth({ children }) {
     // context api lấy ra state
     let auth = useAuth();
     let location = useLocation();
-    debugger;
 
     // Nếu như tìm trong localStorage mà k có token User thì đưa về trang login
     const geUserStorage = localStorage.getItem('tokenUser');

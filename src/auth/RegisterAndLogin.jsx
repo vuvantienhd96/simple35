@@ -1,6 +1,12 @@
 import { Card, Space, Row, Col } from 'antd';
 import React from 'react';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword , signInWithPopup, GoogleAuthProvider, signOut} from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, 
+    signInWithEmailAndPassword , 
+    signInWithPopup, 
+    GoogleAuthProvider, 
+    signOut,
+    sendPasswordResetEmail
+} from "firebase/auth";
 import {useAuth} from './../main';
 import {database} from './../firebaseConfig';
 import {
@@ -19,6 +25,7 @@ import {
     GoogleOutlined
   } from '@ant-design/icons';
   import { provider } from './../firebaseConfig';
+import { useState } from 'react';
 
 const RegisterAndLogin = () => {
 
@@ -44,6 +51,7 @@ const RegisterAndLogin = () => {
              .then((data) => {
                  console.log(data, "authData");
                  // dispath
+                localStorage.setItem('name',  data?.user.email);
                 authStore.signin(data, navigate("/", { replace: true }));
                 //authStore.setUser(data.user.email);
              })
@@ -87,6 +95,8 @@ const RegisterAndLogin = () => {
             token: token
         }
         authStore.setUser(data.email);
+        localStorage.setItem('tokenUser', data.token);
+        localStorage.setItem('name',  user.email);
         //authStore.signin(data, redirect());
         //authStore.callbackUrl(navigate("/DashBoard"));
        
@@ -119,6 +129,26 @@ const RegisterAndLogin = () => {
         });
     }
 
+    const [email, setEmail] = useState(null);
+
+    const forgotGG = () => {
+        console.log('email', email);
+        const auth = getAuth();
+        sendPasswordResetEmail(auth, email)
+        .then((res) => {
+            // Password reset email sent!
+            // ..
+            console.log('success', res);
+        })
+        .catch((error) => {
+            console.log('error', error);
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            // ..
+        });
+
+    }
+
     return <>
         <Row>
             <Col span={16}>
@@ -143,7 +173,10 @@ const RegisterAndLogin = () => {
                                 </div>
 
                                 <button onClick={() => signInG()}><GoogleOutlined style={{ color: 'hotpink' }}/></button>
+                               
                                 <button onClick={() => signOutGG()}>SIGNOUT<GoogleOutlined style={{ color: 'hotpink' }}/></button>
+                                <button onClick={() => forgotGG()}>fogot pass<GoogleOutlined style={{ color: 'hotpink' }}/></button>
+                                <input name="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
                             </div>
                             <h1>{login ? "SignIn" : "SignUp"}</h1>
                             <form onSubmit={(e) => handleSubmit(e, login ? "signin" : "signup")}>
